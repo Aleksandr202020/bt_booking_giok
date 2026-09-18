@@ -49,7 +49,21 @@ export const servicePricesUpdateSchema = z.object({
   ),
 })
 
+export const createBookingSchema = z.object({
+  carId: z.string().uuid(),
+  bookingDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  bookingTime: z.string().regex(/^\d{2}:\d{2}$/),
+  mainServiceId: z.string().uuid(),
+  additionalServiceIds: z.array(z.string().uuid()).optional().default([]),
+  notes: z.string().max(1000).optional().nullable(),
+})
+
+export const adminCreateBookingSchema = createBookingSchema.extend({
+  userId: z.string().uuid(),
+})
+
 export type RegisterInput = z.infer<typeof registerSchema>
 export type LoginInput = z.infer<typeof loginSchema>
 export type CarInput = z.infer<typeof carSchema>
 export type ServiceInput = z.infer<typeof serviceSchema>
+export type CreateBookingInput = z.infer<typeof createBookingSchema>
