@@ -3,24 +3,24 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
+  // Defaults only. On Vercel override with:
+  //   NUXT_DATABASE_URL or DATABASE_URL
+  //   NUXT_SESSION_SECRET or SESSION_SECRET
+  //   NUXT_PUBLIC_APP_URL or APP_URL
   runtimeConfig: {
-    // Private keys (only available on server)
-    sessionSecret: process.env.SESSION_SECRET || '',
-    databaseUrl: process.env.DATABASE_URL || '',
-
-    // Public keys (exposed to client)
+    sessionSecret: '',
+    databaseUrl: '',
     public: {
-      appUrl: process.env.APP_URL || 'http://localhost:3000',
+      appUrl: 'http://localhost:3000',
     },
   },
 
-  // Nitro config for Vercel
   nitro: {
     preset: 'vercel',
   },
 
   typescript: {
     strict: true,
-    typeCheck: false, // run via npm run typecheck
+    typeCheck: false,
   },
 })
